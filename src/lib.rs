@@ -21,6 +21,8 @@ compile_error!(
         stm32g484"
 );
 
+pub use embedded_time as time;
+
 extern crate bare_metal;
 extern crate void;
 
@@ -71,6 +73,5 @@ pub mod rcc;
 // pub mod serial;
 // pub mod spi;
 // pub mod stopwatch;
-pub mod time;
 // pub mod timer;
 // pub mod watchdog;

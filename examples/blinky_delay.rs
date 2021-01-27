@@ -8,6 +8,7 @@ extern crate cortex_m_rt as rt;
 extern crate panic_halt;
 extern crate stm32g4xx_hal as hal;
 
+use hal::time::duration::*;
 use hal::prelude::*;
 use hal::rcc::Config;
 use hal::stm32;
@@ -26,6 +27,6 @@ fn main() -> ! {
 
     loop {
         led.toggle().unwrap();
-        delay.delay(500.ms());
+        delay.delay(500u32.milliseconds()).unwrap();
     }
 }

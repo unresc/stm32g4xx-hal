@@ -1,4 +1,4 @@
-use crate::time::Hertz;
+use crate::time::rate::Hertz;
 
 /// Prescaler
 #[derive(Clone, Copy)]

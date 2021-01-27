@@ -1,5 +1,7 @@
+use core::convert::TryInto;
+
 use crate::rcc::Clocks;
-use crate::time::MicroSecond;
+use crate::time::duration::Microseconds;
 pub use cortex_m::delay::*;
 use cortex_m::{peripheral::SYST, prelude::_embedded_hal_blocking_delay_DelayUs};
 
@@ -14,16 +16,11 @@ impl SYSTDelayExt for SYST {
 }
 
 pub trait DelayExt {
-    fn delay<T>(&mut self, delay: T)
-    where
-        T: Into<MicroSecond>;
+    fn delay<T: TryInto<Microseconds>>(&mut self, delay: T) -> Result<(), T::Error>;
 }
-
 impl DelayExt for Delay {
-    fn delay<T>(&mut self, delay: T)
-    where
-        T: Into<MicroSecond>,
-    {
-        self.delay_us(delay.into().0)
+    fn delay<T: TryInto<Microseconds>>(&mut self, delay: T) -> Result<(), T::Error> {
+        self.delay_us(delay.try_into()?.0);
+        Ok(())
     }
 }
